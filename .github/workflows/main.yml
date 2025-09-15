@@ -1,0 +1,10 @@
+lab01		lab02		lab03		test_lab03.py
+liyatslassie@MacBookPro IS4010-Leah-labs % mkdir -p .github/workflows
+nano .github/workflows/main.yml
+nano lab03/test_lab03.py
+
+
+  UW PICO 5.09                File: .github/workflows/main.yml                  
+
+
+
