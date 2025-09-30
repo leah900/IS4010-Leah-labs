@@ -3,7 +3,7 @@ import pytest
 from lab05 import calculate_average_age, get_active_user_emails
 
 
-@pytest.fixture
+pytest.fixture
 def sample_users():
     return [
         {"name": "alice", "age": 30, "is_active": True, "email": "alice@example.com"},
