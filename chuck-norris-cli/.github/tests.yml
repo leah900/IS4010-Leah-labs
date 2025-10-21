@@ -1,0 +1,30 @@
+
+**Steps:**
+1. Create `requirements.txt` in the project root.
+2. Add the dependencies your code uses.
+3. Save.
+
+---
+
+### **4️⃣ .github/workflows/tests.yml (Optional GitHub Actions workflow)**
+- Only needed if you want GitHub to **automatically run tests** when you push.
+- Example simple workflow:
+
+```yaml
+name: Python Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - run: python -m venv .venv
+      - run: . .venv/bin/activate
+      - run: pip install -r requirements.txt
+      - run: pytest
+
