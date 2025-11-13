@@ -1,0 +1,33 @@
+name: Lab 11 Tests
+
+on:
+  push:
+    paths:
+      - 'lab11/**'
+  pull_request:
+    paths:
+      - 'lab11/**'
+
+jobs:
+  test:
+    name: Run Lab 11 Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Build lab11
+        run: cargo build --manifest-path lab11/Cargo.toml --verbose
+
+      - name: Run lab11 tests
+        run: cargo test --manifest-path lab11/Cargo.toml --verbose
+
+      - name: Run cargo check
+        run: cargo check --manifest-path lab11/Cargo.toml
