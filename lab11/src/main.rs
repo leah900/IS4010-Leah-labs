@@ -38,6 +38,21 @@ fn main() {
 
     println!("\nStudents list:");
     for s in db.list_students() {
-        println!("  {} - {} (GPA: {:.2})", s.id, s.name, s.calculate_gpa());
+        // Reference additional fields to avoid unused-field warnings
+        println!("  {} - {} <{}> (GPA: {:.2})", s.id, s.name, s.email, s.calculate_gpa());
+        // Print transcript details (uses course_code and course_name)
+        if !s.grades.is_empty() {
+            println!("    Transcript:");
+            for cg in &s.grades {
+                println!("      {} - {}: {:?} ({:.1} quality points)",
+                    cg.course_code, cg.course_name, cg.grade, cg.quality_points());
+            }
+        }
+    }
+
+    // Demonstrate mutable lookup and update using find_student_mut
+    if let Some(student_mut) = db.find_student_mut("S001") {
+        student_mut.add_credits(3);
+        println!("\nUpdated credits for {}: {}", student_mut.id, student_mut.credits_earned);
     }
 }
