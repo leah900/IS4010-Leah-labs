@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+
+lab11/target/
+.DS_Store
