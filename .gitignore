@@ -3,3 +3,16 @@ __pycache__/
 
 lab11/target/
 .DS_Store
+
+# Ignore Rust build artifacts for all crates
+**/target/
+
+# Python virtual envs
+.venv/
+venv/
+
+# VS Code
+.vscode/
+
+# Ignore Cargo.lock for workspace crates (optional)
+**/Cargo.lock
