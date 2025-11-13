@@ -165,6 +165,34 @@ impl StudentDatabase {
         students.sort_by(|a, b| a.name.cmp(&b.name));
         students
     }
+
+    /// Find students whose name contains the query (case-insensitive)
+    pub fn find_students_by_name(&self, query: &str) -> Vec<&Student> {
+        let q = query.to_lowercase();
+        let mut results: Vec<&Student> = self.students.values()
+            .filter(|s| s.name.to_lowercase().contains(&q))
+            .collect();
+        results.sort_by(|a, b| a.name.cmp(&b.name));
+        results
+    }
+
+    /// Find students with GPA strictly above the threshold
+    pub fn find_students_with_gpa_above(&self, threshold: f32) -> Vec<&Student> {
+        let mut results: Vec<&Student> = self.students.values()
+            .filter(|s| s.calculate_gpa() > threshold)
+            .collect();
+        results.sort_by(|a, b| a.name.cmp(&b.name));
+        results
+    }
+
+    /// Find students who can graduate (can_graduate == true)
+    pub fn find_students_can_graduate(&self) -> Vec<&Student> {
+        let mut results: Vec<&Student> = self.students.values()
+            .filter(|s| s.can_graduate())
+            .collect();
+        results.sort_by(|a, b| a.name.cmp(&b.name));
+        results
+    }
 }
 
 #[cfg(test)]
@@ -376,5 +404,81 @@ mod tests {
 
         // Average should be 3.5
         assert_eq!(db.average_gpa(), 3.5);
+    }
+
+    #[test]
+    fn find_students_by_name_substring() {
+        let mut db = StudentDatabase::new();
+        let s1 = Student::new(
+            String::from("1"),
+            String::from("Alice Johnson"),
+            String::from("alice@example.com"),
+        );
+        let s2 = Student::new(
+            String::from("2"),
+            String::from("Bob Smith"),
+            String::from("bob@example.com"),
+        );
+        db.add_student(s1).unwrap();
+        db.add_student(s2).unwrap();
+
+        let results = db.find_students_by_name("john");
+        assert_eq!(results.len(), 1);
+        assert_eq!(results[0].name, "Alice Johnson");
+    }
+
+    #[test]
+    fn find_students_with_gpa_above_threshold() {
+        let mut db = StudentDatabase::new();
+        let mut s1 = Student::new(
+            String::from("1"),
+            String::from("Alice"),
+            String::from("a@e.com"),
+        );
+        let mut s2 = Student::new(
+            String::from("2"),
+            String::from("Bob"),
+            String::from("b@e.com"),
+        );
+        s1.add_grade(CourseGrade::new(
+            String::from("C1"),
+            String::from("Course1"),
+            3,
+            Grade::A,
+        ));
+        s2.add_grade(CourseGrade::new(
+            String::from("C2"),
+            String::from("Course2"),
+            3,
+            Grade::C,
+        ));
+        db.add_student(s1).unwrap();
+        db.add_student(s2).unwrap();
+
+        let results = db.find_students_with_gpa_above(3.0);
+        assert_eq!(results.len(), 1);
+        assert_eq!(results[0].name, "Alice");
+    }
+
+    #[test]
+    fn find_students_can_graduate_list() {
+        let mut db = StudentDatabase::new();
+        let mut s1 = Student::new(
+            String::from("1"),
+            String::from("Alice"),
+            String::from("a@e.com"),
+        );
+        let mut s2 = Student::new(
+            String::from("2"),
+            String::from("Bob"),
+            String::from("b@e.com"),
+        );
+        s1.add_credits(120);
+        db.add_student(s1).unwrap();
+        db.add_student(s2).unwrap();
+
+        let results = db.find_students_can_graduate();
+        assert_eq!(results.len(), 1);
+        assert_eq!(results[0].name, "Alice");
     }
 }
