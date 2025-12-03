@@ -10,7 +10,7 @@ pub struct Stack<T> {
 }
 
 impl<T> Stack<T> {
-    pub fn new() -> Stack<T> {
+    pub fn new() -> Self {
         Stack { items: Vec::new() }
     }
 
@@ -36,7 +36,7 @@ impl<T> Stack<T> {
 }
 
 impl<T: fmt::Display> fmt::Display for Stack<T> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "[")?;
         for (i, item) in self.items.iter().enumerate() {
             if i > 0 {
@@ -55,11 +55,6 @@ impl<T> Iterator for Stack<T> {
         self.pop()
     }
 }
-
-// Note: do not implement IntoIterator explicitly for `Stack<T>` here.
-// There's a blanket impl `IntoIterator for I where I: Iterator` in `core`
-// which applies because `Stack<T>` implements `Iterator`. Implementing
-// `IntoIterator` manually would conflict with that blanket impl.
 
 #[cfg(test)]
 mod tests {
@@ -172,14 +167,13 @@ mod tests {
         stack.push(1);
         stack.push(2);
 
-    let mut results: Vec<i32> = Vec::new();
+        let mut results: Vec<i32> = Vec::new();
         for item in stack {
             results.push(item);
         }
         assert_eq!(results, vec![2, 1]);
     }
 
-    // Additional edge case tests
     #[test]
     fn test_len_after_operations() {
         let mut stack = Stack::new();
