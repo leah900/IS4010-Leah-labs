@@ -1,0 +1,67 @@
+# is4010-final-password-manager
+
+A small, secure local password manager CLI implemented in Python. Stores credentials encrypted with a master password using Fernet (symmetric encryption). Designed as a final project for IS4010 — includes tests, CI workflow, MIT license, and AI usage notes.
+
+![Tests](https://github.com/username/repo/actions/workflows/tests.yml/badge.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)
+
+## Features
+- Initialize an encrypted store protected by a master password
+- Add, get, and list credential entries
+- Secure encryption using PBKDF2-HMAC and Fernet
+- Simple CLI with clear usage examples
+
+## Installation
+1. Clone this repository and enter the directory:
+
+```bash
+git clone https://github.com/your-username/is4010-final-password-manager.git
+cd is4010-final-password-manager
+```
+
+2. Create a virtual environment and install dependencies:
+
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Usage
+Initialize a new encrypted store:
+
+```bash
+python -m is4010_final_password_manager.main init store.bin
+```
+
+Add an entry:
+
+```bash
+python -m is4010_final_password_manager.main add store.bin --name github --username me --password s3cret
+```
+
+Get an entry:
+
+```bash
+python -m is4010_final_password_manager.main get store.bin --name github
+```
+
+List entries:
+
+```bash
+python -m is4010_final_password_manager.main list store.bin
+```
+
+## Testing
+Run the test suite:
+
+```bash
+pytest
+```
+
+## AI-Assisted Development
+See `AGENTS.md` for details on how AI tools were used during development.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
