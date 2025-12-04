@@ -31,8 +31,80 @@ python -m src.main delete tasks.json 1
 
 ## Testing
 
-Run:
+# is4010-final-task-tracker
+
+Minimal Task Tracker CLI (Python) — designed for IS4010 final project submission.
+
+![Tests](https://github.com/leah900/IS4010-Leah-labs/actions/workflows/is4010-final-task-tracker-tests.yml/badge.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)
+
+Overview
+--------
+
+This small CLI app stores tasks in a local JSON file. It supports initializing a store, adding tasks, listing tasks, marking tasks complete, and deleting tasks.
+
+Install
+-------
+
+Create a venv and install test deps (for running tests locally):
 
 ```bash
-pytest
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
+
+Usage
+-----
+
+Initialize a task store:
+
+```bash
+python -m src.main init tasks.json
+```
+
+Add a task:
+
+```bash
+python -m src.main add tasks.json "Buy milk"
+```
+
+List tasks:
+
+```bash
+python -m src.main list tasks.json
+```
+
+Mark a task complete and delete a task:
+
+```bash
+python -m src.main complete tasks.json 2
+python -m src.main delete tasks.json 1
+```
+
+Testing
+-------
+
+Run the pytest suite from the project directory:
+
+```bash
+python3 -m pytest -q
+```
+
+Project files
+-------------
+
+- `src/main.py` — main CLI implementation
+- `tests/` — pytest tests (unit and edge cases)
+- `.github/workflows/tests.yml` — CI workflow that runs the tests on push/PR
+
+AI-assisted development
+----------------------
+
+This project used AI tools to accelerate prototyping and tests; see `AGENTS.md` for details and prompts.
+
+License
+-------
+
+MIT
