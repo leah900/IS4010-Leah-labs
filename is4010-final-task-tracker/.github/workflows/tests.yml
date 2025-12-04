@@ -12,6 +12,8 @@ jobs:
         with:
           python-version: '3.10'
       - name: Install dependencies
-        run: pip install -r is4010-final-task-tracker/requirements.txt
+        run: |
+          pip install -r is4010-final-task-tracker/requirements.txt
+          pip install -e ./is4010-final-task-tracker
       - name: Run tests
-        run: pytest is4010-final-task-tracker/tests
+        run: pytest

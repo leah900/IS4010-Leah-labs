@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=61.0","wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "is4010-final-task-tracker"
+version = "0.1.0"
+description = "Minimal Task Tracker CLI for IS4010"
+readme = "README.md"
+requires-python = ">=3.10"
+
+[project.scripts]
+task-tracker = "src.main:main"
