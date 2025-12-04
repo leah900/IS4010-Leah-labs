@@ -67,3 +67,14 @@ def get_entry(path: str, password: str, name: str):
         if e["name"] == name:
             return e
     return None
+
+
+def generate_password(length: int = 16, use_symbols: bool = True) -> str:
+    """Generate a secure random password."""
+    import secrets
+    import string
+
+    alphabet = string.ascii_letters + string.digits
+    if use_symbols:
+        alphabet += string.punctuation
+    return ''.join(secrets.choice(alphabet) for _ in range(length))

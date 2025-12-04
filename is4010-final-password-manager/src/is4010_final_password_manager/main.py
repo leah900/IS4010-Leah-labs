@@ -41,5 +41,13 @@ def list_cmd(path, password):
     for n in names:
         click.echo(n)
 
+
+@cli.command()
+@click.option('--length', default=16, type=int)
+@click.option('--no-symbols', is_flag=True)
+def generate(length, no_symbols):
+    pwd = store.generate_password(length=length, use_symbols=not no_symbols)
+    click.echo(pwd)
+
 if __name__ == '__main__':
     cli()
