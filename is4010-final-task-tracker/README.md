@@ -55,6 +55,14 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Or install the package in editable mode so you can run the `task-tracker` console script:
+
+```bash
+pip install -e .
+task-tracker init tasks.json
+task-tracker add tasks.json "Buy milk"
+```
+
 Usage
 -----
 
