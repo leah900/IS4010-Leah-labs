@@ -78,3 +78,35 @@ def generate_password(length: int = 16, use_symbols: bool = True) -> str:
     if use_symbols:
         alphabet += string.punctuation
     return ''.join(secrets.choice(alphabet) for _ in range(length))
+
+
+def update_entry(path: str, password: str, name: str, username: str = None, pwd: str = None) -> bool:
+    """Update an existing entry. Returns True if updated, False if not found."""
+    store = load_store(path, password)
+    for e in store["entries"]:
+        if e["name"] == name:
+            if username is not None:
+                e["username"] = username
+            if pwd is not None:
+                e["password"] = pwd
+            save_store(path, password, store)
+            return True
+    return False
+
+
+def delete_entry(path: str, password: str, name: str) -> bool:
+    """Delete an entry by name. Returns True if deleted."""
+    store = load_store(path, password)
+    orig_len = len(store["entries"])
+    store["entries"] = [e for e in store["entries"] if e["name"] != name]
+    if len(store["entries"]) < orig_len:
+        save_store(path, password, store)
+        return True
+    return False
+
+
+def search_entries(path: str, password: str, query: str):
+    """Return entries where name or username contains the query (case-insensitive)."""
+    store = load_store(path, password)
+    q = query.lower()
+    return [e for e in store["entries"] if q in e["name"].lower() or q in e["username"].lower()]

@@ -10,3 +10,6 @@
 
 ## Reflection
 Using AI sped up boilerplate creation and helped craft tests. All AI-suggested code was reviewed and adapted to ensure security best practices.
+
+## CI badge
+The repository includes a GitHub Actions workflow for running the project's test suite; the README contains a status badge linked to that workflow.

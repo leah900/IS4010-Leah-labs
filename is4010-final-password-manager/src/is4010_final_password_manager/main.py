@@ -49,5 +49,35 @@ def generate(length, no_symbols):
     pwd = store.generate_password(length=length, use_symbols=not no_symbols)
     click.echo(pwd)
 
+
+@cli.command()
+@click.argument('path')
+@click.password_option()
+@click.option('--name', required=True)
+@click.option('--username', required=False)
+@click.option('--password', 'pwd', required=False)
+def update(path, password, name, username, pwd):
+    ok = store.update_entry(path, password, name, username=username, pwd=pwd)
+    click.echo("Updated" if ok else "Not found")
+
+
+@cli.command()
+@click.argument('path')
+@click.password_option()
+@click.option('--name', required=True)
+def delete(path, password, name):
+    ok = store.delete_entry(path, password, name)
+    click.echo("Deleted" if ok else "Not found")
+
+
+@cli.command()
+@click.argument('path')
+@click.password_option()
+@click.option('--query', required=True)
+def search(path, password, query):
+    results = store.search_entries(path, password, query)
+    for e in results:
+        click.echo(f"{e['name']} {e['username']}")
+
 if __name__ == '__main__':
     cli()
