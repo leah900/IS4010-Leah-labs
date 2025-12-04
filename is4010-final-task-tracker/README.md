@@ -14,6 +14,14 @@ python -m src.main add tasks.json "Buy milk"
 python -m src.main list tasks.json
 ```
 
+Advanced examples:
+
+```bash
+python -m src.main add tasks.json "Write report"
+python -m src.main complete tasks.json 2
+python -m src.main delete tasks.json 1
+```
+
 ## Features
 
 - Add tasks
